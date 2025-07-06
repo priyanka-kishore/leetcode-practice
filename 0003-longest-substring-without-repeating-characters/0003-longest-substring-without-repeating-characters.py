@@ -8,11 +8,8 @@ class Solution:
             # if R char is not dupe, add to set, move R++, increase max
             if s[R] not in seen:
                 seen.add(s[R])
-                
                 curr_len = R - L + 1
-                if curr_len > max_len:
-                    max_len = curr_len
-                
+                max_len = max(curr_len, max_len)
                 R += 1
             else:
                 # move Left pointer up one

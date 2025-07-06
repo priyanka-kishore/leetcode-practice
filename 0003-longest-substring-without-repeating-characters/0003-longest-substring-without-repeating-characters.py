@@ -1,4 +1,5 @@
 class Solution:
+    # O(n) time, O(n) space
     def lengthOfLongestSubstring(self, s: str) -> int:
         L = R = max_len = 0
         seen = set()

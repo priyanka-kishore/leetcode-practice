@@ -18,5 +18,4 @@ class Solution:
             if min_len == 1:
                 return 1
         
-        # return min_len if min_len != MAX_NUMS_LEN else 0
         return 0 if min_len > MAX_NUMS_LEN else min_len

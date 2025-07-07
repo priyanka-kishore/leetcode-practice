@@ -1,10 +1,12 @@
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        # O(1) space
         MAX_NUMS_LEN = (10 ** 5)
         L = R = 0
         min_len = MAX_NUMS_LEN + 1
         cur_sum = nums[L]
 
+        # O(n) time
         while L < len(nums) and R < len(nums):
             if cur_sum < target:
                 R += 1

@@ -1,41 +1,46 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        answers = []
-        sn = sorted(nums)
-        f, l, r = 0, 1, 2 # f = fixed pointer
+        # sort array
+        # 1 fixed pointer + 2 other pointers to find rest of sum to 0
+        # avoid duplicates by:
+        #   1. avoiding repeat fixed pointers
+        #   2. avoiding repeat left and right pointers after moving each inwards
 
-        while f <= len(sn) - 3:
-            # to help skip duplicate triplets:
-            if f > 0 and sn[f] == sn[f - 1]: # if curr f == prev f, will generate/expect same exact triplets
-                f += 1
+        nums.sort()
+        res = []
+
+        # f stops before last 2 elements
+        for f in range(len(nums) - 2):
+
+            # if this f value is same as last, skip to avoid duplicates
+            if (f > 0 and nums[f] == nums[f-1]):
                 continue
-            
+
+            newTargetSum = 0 - nums[f]
+
             l = f + 1
-            r = len(sn) - 1
+            r = len(nums) - 1
 
-            targetSubSum = 0 - sn[f]
+            # 2-sum problem, where sum = newTargetSum
             while l < r:
-                currSubSum = sn[l] + sn[r]
-                if currSubSum < targetSubSum:
-                    l += 1
-                elif currSubSum > targetSubSum:
+                s = nums[l] + nums[r]
+
+                if s > newTargetSum:
                     r -= 1
+                elif s < newTargetSum:
+                    l += 1
                 else:
-                    # found a valid triplet
-                    answers.append([sn[f], sn[l], sn[r]])
-                    
-                    # move pointers in such a way to eliminate duplicate possibilities
+                    # found the triplet: add to result array + set next itr pointers
+                    res.append([nums[f], nums[l], nums[r]])
 
-                    # move both, otherwise may generate duplicate triplets (since both l,r needed to add correctly)
                     l += 1
                     r -= 1
 
-                    # after moving both, check each new values were not previously seen. if seen, move until find diff
-                    while l < r and sn[l] == sn[l - 1]:
+                    # set up next iteration (l,r pointers) to avoid duplicate triplets
+                    while (l < r and nums[l] == nums[l-1]):
                         l += 1
-                    while l < r and sn[r] == sn[r + 1]:
+                    while (l < r and nums[r] == nums[r+1]):
                         r -= 1
 
-            f += 1
 
-        return answers
+        return res # array of tuplets of correct items (not indices)

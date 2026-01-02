@@ -1,20 +1,14 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        maxArea = 0
-        l = 0
-        r = len(height) - 1
+        maxWater = 0
+        l, r = 0, len(height) - 1
 
         while l < r:
-            # 1. area = smaller edge * (r - l)
-            # 2. calculate if curr area is max
-            # 3. to maximize next iteration, keep tallest edge, move other pointer
+            maxWater = max((r - l) * min(height[l], height[r]), maxWater)
 
-            currArea = min(height[l], height[r]) * (r - l)
-            maxArea = max(maxArea, currArea)
-
-            if height[l] > height[r]:
-                r -= 1
-            else:
+            if height[l] < height[r]:
                 l += 1
-
-        return maxArea
+            else:
+                r -= 1
+        
+        return maxWater

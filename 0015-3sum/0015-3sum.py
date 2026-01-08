@@ -1,46 +1,42 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        # sort array
-        # 1 fixed pointer + 2 other pointers to find rest of sum to 0
-        # avoid duplicates by:
-        #   1. avoiding repeat fixed pointers
-        #   2. avoiding repeat left and right pointers after moving each inwards
+        answers = []
 
         nums.sort()
-        res = []
+        # print(nums)
 
-        # f stops before last 2 elements
-        for f in range(len(nums) - 2):
+        i, j, k = 0, 1, len(nums) - 1
 
-            # if this f value is same as last, skip to avoid duplicates
-            if (f > 0 and nums[f] == nums[f-1]):
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                # print(f"{nums[i]} (i) is duplicate...skipping i")
                 continue
+            
+            # print(nums[i])
 
-            newTargetSum = 0 - nums[f]
+            j = i + 1
+            k = len(nums) - 1
 
-            l = f + 1
-            r = len(nums) - 1
-
-            # 2-sum problem, where sum = newTargetSum
-            while l < r:
-                s = nums[l] + nums[r]
-
-                if s > newTargetSum:
-                    r -= 1
-                elif s < newTargetSum:
-                    l += 1
+            while j < k:
+                # print(i,j,k)
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    # print(f"{nums[j]} (j) is duplicate...skipping j")
+                    j += 1
+                    continue
+                
+                remaining_target = 0 - nums[i]
+                remaining_sum = nums[j] + nums[k]
+                if remaining_sum < remaining_target:
+                    # print(f"sum {remaining_sum} too small...moving j")
+                    j += 1
+                elif remaining_sum > remaining_target:
+                    # print(f"sum {remaining_sum} too big...moving k")
+                    k -= 1
                 else:
-                    # found the triplet: add to result array + set next itr pointers
-                    res.append([nums[f], nums[l], nums[r]])
-
-                    l += 1
-                    r -= 1
-
-                    # set up next iteration (l,r pointers) to avoid duplicate triplets
-                    while (l < r and nums[l] == nums[l-1]):
-                        l += 1
-                    while (l < r and nums[r] == nums[r+1]):
-                        r -= 1
+                    # print(f"found a triplet: [{nums[i]}, {nums[j]}, {nums[k]}]")
+                    answers.append([nums[i], nums[j], nums[k]])
+                    j += 1
+                    k -= 1
 
 
-        return res # array of tuplets of correct items (not indices)
+        return answers

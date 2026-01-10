@@ -3,23 +3,21 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        z = 0
-        nz = 0
+        
+        seek_zero = 0
+        seek_nonzero = seek_zero + 1
 
-        # print(nums)
-        while nz < len(nums) - 1:
-            # find next 0
-            while nums[z] != 0 and z < len(nums) - 1:
-                z += 1
-            # print(f"found next 0 at index {z}: {nums[z]}")
+        while seek_nonzero < len(nums):
+            while seek_zero < len(nums) - 1 and nums[seek_zero] != 0:
+                seek_zero += 1
             
-            nz = z # find non-0 after the 0
-            while nums[nz] == 0 and nz < len(nums) - 1:
-                nz += 1
-            # print(f"found next non-0 at index {nz}: {nums[nz]}")
+            seek_nonzero = seek_zero
+            while seek_nonzero < len(nums) - 1 and nums[seek_nonzero] == 0:
+                seek_nonzero += 1
             
-            # swap
-            if nums[z] == 0 and nums[nz] != 0:
-                nums[z] = nums[nz]
-                nums[nz] = 0
-                # print("swapping...\n", nums)
+            if nums[seek_zero] == 0 and nums[seek_nonzero] != 0:
+                nums[seek_zero] = nums[seek_nonzero]
+                nums[seek_nonzero] = 0
+            
+            seek_zero += 1
+            seek_nonzero += 1

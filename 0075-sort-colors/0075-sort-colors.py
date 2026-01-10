@@ -1,22 +1,25 @@
-import math
-
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
 
-        lo = 0
-        hi = len(nums) - 1
+        curr = 0
+        zero_spot = 0
+        two_spot = len(nums) - 1
 
-        i = 0
-        while i <= hi:
-            if nums[i] == 1:
-                i += 1
-            elif nums[i] == 2: # high number
-                nums[i], nums[hi] = nums[hi], nums[i] # swap
-                hi -= 1
-            elif nums[i] == 0: # low number
-                nums[i], nums[lo] = nums[lo], nums[i] # swap
-                lo += 1
-                i += 1
+        while curr <= two_spot:
+            if nums[curr] == 2 and curr != two_spot:
+                nums[curr] = nums[two_spot]
+                nums[two_spot] = 2
+                two_spot -= 1
+                continue
+            
+            if nums[curr] == 0 and curr != zero_spot:
+                nums[curr] = nums[zero_spot]
+                nums[zero_spot] = 0
+                zero_spot += 1
+                continue
+            
+            curr += 1
+        

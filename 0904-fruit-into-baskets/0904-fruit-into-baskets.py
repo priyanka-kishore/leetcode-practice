@@ -6,24 +6,21 @@ class Solution:
                          ^  ^  ^  ^ length = 4
     """
     def totalFruit(self, fruits: List[int]) -> int:
-        L, max_len, window_len = 0, 0, 0
+        L, max_len = 0, 0
         fruit_counts = {}
 
         for R in range(len(fruits)):
-            window_len += 1
             # update set with current fruit
-            fruit_counts[fruits[R]] = fruit_counts[fruits[R]] + 1 if fruits[R] in fruit_counts else 1
+            fruit_counts[fruits[R]] = fruit_counts.get(fruits[R], 0) + 1 # Note - dict.get(value if in dict, default value if not in dict)
 
-            # window not valid
-            if len(fruit_counts) > 2:
-                while len(fruit_counts) > 2 and L < R:
-                    fruit_counts[fruits[L]] -= 1
-                    if fruit_counts[fruits[L]] == 0:
-                        del fruit_counts[fruits[L]]
-                    L += 1
-                    window_len -= 1
+            # if window not valid, move L until valid
+            while len(fruit_counts) > 2 and L < R:
+                fruit_counts[fruits[L]] -= 1
+                if fruit_counts[fruits[L]] == 0:
+                    del fruit_counts[fruits[L]]
+                L += 1
 
             # window is/becomes valid
-            max_len = max(max_len, window_len)
+            max_len = max(max_len, R - L + 1) # Note - don't need a "window_len"
 
         return max_len

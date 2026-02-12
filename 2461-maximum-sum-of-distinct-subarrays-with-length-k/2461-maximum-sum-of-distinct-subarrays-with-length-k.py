@@ -1,30 +1,23 @@
 class Solution:
     def maximumSubarraySum(self, nums: List[int], k: int) -> int:
-        start = 0
-        seen_with_idx = {}
-        window_sum = 0
+        seen = set()
         max_sum = 0
+        win_sum, L = 0, 0
 
-        for end in range(len(nums)):
-            window_sum += nums[end]
+        for R in range(len(nums)):
+            win_sum += nums[R]
 
-            ## Adjust window to maintain uniqueness
+            while nums[R] in seen:
+                seen.remove(nums[L])
+                win_sum -= nums[L]
+                L += 1
             
-            # if already seen, move start to AFTER that seen index ONLY IF seen index >= START
-            if nums[end] in seen_with_idx:
-                while start <= seen_with_idx[nums[end]]:
-                    window_sum -= nums[start]
-                    start += 1
+            seen.add(nums[R])
 
-            # update set with currently seen index
-            seen_with_idx[nums[end]] = end
-            
-            ## Calculate state and adjust sliding window for next iteration
-            
-            if end - start + 1 == k:
-                max_sum = max(max_sum, window_sum)
-                window_sum -= nums[start]
-                start += 1
-
-        return max_sum
+            if R - L + 1 == k:
+                max_sum = max(max_sum, win_sum)
+                seen.remove(nums[L])
+                win_sum -= nums[L]
+                L += 1
         
+        return max_sum

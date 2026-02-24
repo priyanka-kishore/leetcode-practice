@@ -1,6 +1,5 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        sequence = ""
         stack = []
 
         for c in s:
@@ -23,9 +22,5 @@ class Solution:
 
                 encoded_string *= int(freq)
                 stack.append(encoded_string)
-                    
-        # handle any remaining characters left in stack
-        if len(stack) > 0:
-            sequence += "".join(stack)
         
-        return sequence
+        return "".join(stack)

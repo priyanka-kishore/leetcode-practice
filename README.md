@@ -32,6 +32,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/priyanka-kishore/leetcode-practice/tree/master/0003-longest-substring-without-repeating-characters) |
+| [0394-decode-string](https://github.com/priyanka-kishore/leetcode-practice/tree/master/0394-decode-string) |
 | [0424-longest-repeating-character-replacement](https://github.com/priyanka-kishore/leetcode-practice/tree/master/0424-longest-repeating-character-replacement) |
 ## Sliding Window
 |  |
@@ -81,4 +82,12 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0435-non-overlapping-intervals](https://github.com/priyanka-kishore/leetcode-practice/tree/master/0435-non-overlapping-intervals) |
+## Stack
+|  |
+| ------- |
+| [0394-decode-string](https://github.com/priyanka-kishore/leetcode-practice/tree/master/0394-decode-string) |
+## Recursion
+|  |
+| ------- |
+| [0394-decode-string](https://github.com/priyanka-kishore/leetcode-practice/tree/master/0394-decode-string) |
 <!---LeetCode Topics End-->
